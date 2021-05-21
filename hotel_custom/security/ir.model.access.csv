@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_contract_employee,access_contract_employee,hr_contract.model_hr_contract,security_groups.group_hr_employee,1,0,0,0
+access_document,access_document_employee,documents.model_documents_document,security_groups.group_hr_employee,1,1,1,1
+access_partner,access_partner_employee,base.model_res_partner,security_groups.group_hr_employee,1,1,1,1
+hr_appraisal.access_hr_appraisal_user,hr.appraisal.user,hr_appraisal.model_hr_appraisal,hr_appraisal.group_hr_appraisal_user,1,1,0,0
+hr_appraisal.access_hr_appraisal_employee,hr.appraisal.employee,hr_appraisal.model_hr_appraisal,security_groups.group_company_hc,1,1,0,0
+access_hr_appraisal_admin,hr.appraisal.admin,hr_appraisal.model_hr_appraisal,security_groups.group_company_hc,1,1,1,1
+access_employee_gs_team,hr.employee_Gs_Team,hr.model_hr_employee,security_groups.group_hc_employee,1,1,1,1
+access_employee_employee,access_employee_employee,hr.model_hr_employee,security_groups.group_hr_employee,1,1,0,0
+hr.access_hr_employee_user,hr.employee_user,hr.model_hr_employee,hr.group_hr_user,1,1,0,0
+access_employee_admin,hr.employee_admin,hr.model_hr_employee,security_groups.group_company_hc,1,1,1,1
+access_survey_employee,survey_employee,survey.model_survey_survey,security_groups.group_company_employee,1,0,0,0
+access_survey_quest_employee,survey_quest_employee,survey.model_survey_question,security_groups.group_company_employee,1,0,0,0
+access_survey_user_input_employee,survey_user_input_employee,survey.model_survey_user_input,security_groups.group_company_employee,1,1,1,0
+access_hr_applicant,hr_applicant_employee,hr_recruitment.model_hr_applicant,security_groups.group_company_employee,1,1,1,0
+access_hr_rec_stage,hr_rec_stage_employee,hr_recruitment.model_hr_recruitment_stage,security_groups.group_company_employee,1,1,1,0
+

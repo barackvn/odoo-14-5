@@ -1,0 +1,342 @@
+<odoo>
+    <data>
+        <template id="external_layout_custom" inherit_id="web.external_layout_standard">
+            <xpath expr="//div[1]" position="replace">
+                <div t-attf-class="o_company_#{company.id}_layout header" t-att-style="report_header_style">
+                    <div class="o_background_header">
+                        <div class="float-right">
+                            <h3 class="mt0 text-right" t-field="company.report_header"/>
+                        </div>
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-left"
+                             alt="Logo"/>
+                        <div class="float-left company_address">
+                            <div>
+                                <strong t-field="company.partner_id.name"/>
+                            </div>
+                        </div>
+                        <div class="clearfix mb8"/>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+        <template id="hotel_report_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="padding-top:1px !important;margin-top: -55px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="text-center"
+                                        style="font-size: 25px; color: rgb(255, 0, 0); background-color: rgb(255, 255, 255); ">
+                                        <strong>Room Accommodation Invoice</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+
+                            <t t-set="room" t-value="docs.room_lines"/>
+                            <t t-set="guest_id_no" t-value="docs.id_line_ids"/>
+                            <t t-set="invoice" t-value="docs.invoice_ids"/>
+                            <t t-set="services" t-value="docs.service_lines"/>
+                            <t t-set="payment"
+                               t-value="invoice and invoice[0].sudo()._get_reconciled_info_JSON_values()"/>
+                            <!--                            <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>-->
+                            <table width="100%" class="table">
+                                <tr>
+                                    <td style="font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><strong>
+                                        Folio No:</strong></td>
+                                    <td class="text-center"><span t-field="docs.name"/></td>
+                                    <td class="text-center"><span t-field="room.product_id"/></td>
+                                    <td dir="rtl" class="text-right"
+                                        style="font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><strong>
+                                        رقم الوحده:</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><strong>
+                                        Conf. No:</strong></td>
+                                    <td class="text-center"><span t-field="docs.reservation_id.name"/></td>
+                                    <td class="text-center">
+                                        <span t-field="room.product_id.owner_id"/>
+                                    </td>
+                                    <td dir="rtl" class="text-right"
+                                        style="font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><strong>
+                                        مالك الوحده:</strong></td>
+                                </tr>
+                            </table>
+                            <table width="100%" class="table table-bordered" dir='rtl'>
+                                <tr class="text-center">
+                                    <th style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        اسم النزيل</th>
+                                    <th style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        الجنسيه</th>
+                                    <th style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        رقم قومى</th>
+                                    <th style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><strong>
+                                        تاريخ الوصول</strong></th>
+                                    <th style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><strong>
+                                        تاريخ المغادره</strong></th>
+                                    <td style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><strong>
+                                        رقم التليفون</strong></td>
+                                    <th style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        عدد ليالى الاقامه</th>
+                                    <th style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        عدد النزلاء￼ ( كبار / صغار)</th>
+                                </tr>
+                                <tr class="text-center">
+                                    <td style="border: 1px solid black;">
+                                        <span t-esc="docs.partner_id.display_name"/>
+                                    </td>
+                                    <td style="border: 1px solid black;">
+                                        <t t-if="guest_id_no">
+                                            <span t-esc="guest_id_no[0].country_id.name"/>
+                                        </t>
+                                    </td>
+                                    <td style="border: 1px solid black;">
+                                        <t t-if="guest_id_no">
+                                            <span t-esc="guest_id_no[0].name"/>
+                                        </t>
+                                    </td>
+                                    <td style="border: 1px solid black;">
+                                        <span t-field="room.checkin_date" t-options='{"format": "dd/MM/yyyy"}'/>
+                                    </td>
+                                    <td style="border: 1px solid black;">
+                                        <span t-field="room.checkout_date" t-options='{"format": "dd/MM/yyyy"}'/>
+                                    </td>
+                                    <td style="border: 1px solid black;"><span t-field="docs.partner_id.mobile"/></td>
+                                    <td style="border: 1px solid black;"><span
+                                            t-esc="get_total_days(room.checkin_date,room.checkout_date)"/></td>
+                                    <td style="border: 1px solid black;">
+                                        (<span t-esc="docs.reservation_id.adults"/> / <span
+                                            t-esc="docs.reservation_id.childs"/>)
+                                    </td>
+                                </tr>
+                                <tr class="text-right">
+                                    <td class="text-right" colspan="2"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <strong>
+                                            المبلغ المستحق للمالك :
+                                        </strong>
+                                    </td>
+                                    <td colspan="6" class="text-right" style="border: 1px solid black;"><span
+                                            t-esc="room.price_subtotal"/></td>
+                                </tr>
+                                <tr class="text-right">
+                                    <td colspan="2"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <strong class="text-right">مبلغ التامين الوحده : </strong>
+                                    </td>
+                                    <td colspan="6" class="text-right" style="border: 1px solid black;">
+                                        <t t-if="services">
+                                            <t t-foreach="services" t-as="insurance_valus">
+                                                <t t-if="insurance_valus.product_id.is_insurance">
+                                                    <span t-esc="insurance_valus.price_subtotal"/>
+                                                </t>
+                                            </t>
+                                        </t>
+
+                                    </td>
+                                </tr>
+                                <tr class="text-right">
+                                    <td colspan="2"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <strong class="text-right">خدمة النظافه : </strong>
+                                    </td>
+                                    <td colspan="6" class="text-right" style="border: 1px solid black;">
+                                        <t t-if="services">
+                                            <t t-set="cleaning_service" t-value="0"/>
+                                            <t t-foreach="services" t-as="insurance_valus">
+                                                <t t-if="not insurance_valus.product_id.is_insurance">
+                                                    <t t-set="cleaning_service"
+                                                       t-value="cleaning_service+insurance_valus.price_subtotal"/>
+                                                </t>
+                                            </t>
+                                            <span t-esc="cleaning_service"/>
+                                        </t>
+
+                                    </td>
+                                </tr>
+                                <tr class="text-right">
+                                    <td colspan="2"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <strong class="text-right">
+                                            اجمالى المستحق بالمصرى :
+                                        </strong>
+                                    </td>
+                                    <td colspan="6" class="text-right" style="border: 1px solid black;">
+                                        <span t-esc="docs.amount_total"/>
+                                    </td>
+                                </tr>
+
+                                <tr class="text-right">
+                                    <td colspan="3" style="border: 1px solid black;"></td>
+                                    <td colspan="2"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><strong
+                                            class="text-right">المبلغ المدفوع
+                                        :</strong></td>
+                                    <td colspan="4" class="text-right" style="border: 1px solid black;">
+                                        <t t-if="payment">
+                                            <t t-set="payment_amount" t-value="0.0"/>
+                                            <t t-foreach="payment" t-as="payment_vals">
+                                                <t t-set="payment_amount"
+                                                   t-value="payment_amount+payment_vals['amount']"/>
+                                            </t>
+                                            <span t-esc="payment_amount"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr class="text-right">
+                                    <td colspan="3" style="border: 1px solid black;"></td>
+                                    <td colspan="2"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><strong
+                                            class="text-right">طريقه
+                                        السداد:</strong></td>
+                                    <td colspan="4" class="text-right" style="border: 1px solid black;">
+                                        <t t-if="payment">
+                                            <t t-set="payment_method_name" t-value=""/>
+                                            <t t-foreach="payment" t-as="payment_vals">
+                                                <span t-esc="payment_vals['journal_name']"/>
+                                            </t>
+
+                                        </t>
+                                    </td>
+                                </tr>
+
+                                <tr class="text-right">
+                                    <td colspan="3" style="border: 1px solid black;"></td>
+                                    <td colspan="2"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><strong
+                                            class="text-right">ايصال سداد
+                                        رقم:</strong></td>
+                                    <td colspan="4" class="text-right" style="border: 1px solid black;">
+                                        <t t-if="payment">
+                                            <t t-set="payment_method_name" t-value=""/>
+                                            <t t-foreach="payment" t-as="payment_vals">
+                                                <span t-esc="payment_vals['ref']" dir="ltr" class="text-center"/>
+                                            </t>
+
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p dir="rtl" class="text-right"
+                               style="font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                أتعهد باخلاء الوجدة بتاريخ المغادرة قبل الساعه العاشرة صباحا و فى حالة عدم
+                                الالتزام يتم سداد قيمة ليله كامله بالسعر المعلن فى الاداره
+                                الفندقيه وفقا لعدد الغرف .
+                                <br/>
+                                يتم تسكين الوحده بحد أقصى الساعه الواحده ظهراً.
+                                <br/>
+                                الاستردادات المالية عن طريق التحويل البنكى و ذلك بعد التواصل مع المالك و ابلاغنا من قبل
+                                المالك برساله نصيه.
+                                <br/>
+                                يتم دفع تأمين على الوحده قدرها خمسمائة جنيهاً و فى حالة حدوث اى تلفيات بالوحده يتم خصم
+                                قيمتها من ثمن التأمين و اذا تخطى قيمة التأمين يتم تحميلها تقديريا من قبل الاداره
+                                الفندقيه و يتم سدادها نقدا.
+                            </p>
+                            <br/>
+                            <table width="100%">
+                                <tr>
+                                    <td class="text-center">
+                                        <strong>Cashier : </strong>
+                                        <span t-esc="get_user()"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="row mt32">
+                                <div class="col-xs-3">
+                                    <strong/>
+                                </div>
+                            </div>
+                            <table width="100%">
+                                <tr>
+                                    <td width="50%" class="text-left">
+                                        <strong>Authorized Signatory</strong>
+                                    </td>
+                                    <td width="50%" class="text-right">
+                                        <strong>Guest's Signature</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <h4 dir="rtl" class="text-right">بيانات نزلاء الوحده</h4>
+                            <br/>
+                            <table class="table table-bordered" dir="rtl">
+                                <tr>
+                                    <td colspan="2"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <strong class="text-center">رقم الوحده :</strong>
+                                    </td>
+                                    <td colspan="2" class="text-center"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><span
+                                            t-field="room.product_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <strong class="text-center">رقم الحجز :</strong>
+                                    </td>
+                                    <td colspan="2" class="text-center"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;"><span
+                                            t-field="docs.reservation_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <strong>
+                                            سيريال
+                                        </strong></td>
+
+                                    <td class="text-center"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <strong>
+                                            اسم النزيل
+                                        </strong>
+                                    </td>
+
+                                    <td class="text-center"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <strong>
+                                            رقم قومى
+                                        </strong>
+                                    </td>
+
+                                    <td class="text-center"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <strong>
+                                            الجنسيه
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <t t-set="i" t-value="1"/>
+                                <tr t-foreach="guest_id_no" t-as="guest">
+
+                                    <td class="text-center"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <span t-esc="i"/>
+                                        <t t-set="i" t-value="i+1"/>
+                                    </td>
+                                    <td class="text-center"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <span t-esc="guest.partner_name"/>
+                                    </td>
+
+                                    <td class="text-center"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <span t-esc="guest.name"/>
+                                    </td>
+
+                                    <td class="text-center"
+                                        style="border: 1px solid black;font-family: 'Odoo Unicode Support Noto', 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+                                        <span t-esc="guest.country_id.display_name"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

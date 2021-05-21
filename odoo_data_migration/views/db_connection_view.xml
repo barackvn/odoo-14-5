@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="db_connection_form_view" model="ir.ui.view">
+            <field name="name">dbconnection</field>
+            <field name="model">dbconnection</field>
+            <field name="arch" type="xml">
+                <form string="Database Connection String">
+                    <header>
+                        <button string="Test Connection" name="test_connection" class="oe_highlight" type="object"/>
+                        <button string="Load vendors" name="load_vendor_process" class="oe_highlight oe_inline"
+                                type="object"/>
+                        <button string="Load Customers" name="load_customer_process" class="oe_highlight"
+                                type="object"/>
+                        <button string="Load Product Category" name="load_product_categ_process" class="oe_highlight"
+                                type="object"/>
+                        <button string="Load Products" name="load_product_process" class="oe_highlight" type="object"/>
+                        <button string="Load Invoices" name="load_invoices_process" class="oe_highlight" type="object"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="connection_status" attrs="{'readonly': 1}"/>
+                            </group>
+                        </group>
+                        <separator string="Connection Details" colspan="2"/>
+                        <group>
+                            <group>
+                                <field name="connection_driver"/>
+                                <field name="connection_server"/>
+                                <field name="connection_db"/>
+                            </group>
+                            <group>
+
+                                <field name="connection_port"/>
+                                <field name="connection_user"/>
+                                <field name="connection_password" password="True"/>
+                            </group>
+                        </group>
+
+
+                        <notebook>
+                            <page string="Vendors">
+                                <group>
+                                    <group>
+                                        <field name="vendor_id_map" string="ID"/>
+                                        <field name="vendor_name_map" string="Name"/>
+                                        <field name="vendor_description_map" string="Description"/>
+                                    </group>
+                                    <group>
+                                        <field name="vendor_email_map" string="Email"/>
+                                        <field name="vendor_phone_map" string="Phone"/>
+                                        <field name="vendor_contact_map" string="Contact"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="vendor_table_name" string="Table Name"/>
+                                    <field name="vendor_table_where" string="Table Where"/>
+                                </group>
+                            </page>
+                            <page string="Customers">
+                                <group>
+                                    <group>
+                                        <field name="customer_id_map" string="ID"/>
+                                        <field name="customer_name_map" string="Name"/>
+                                    </group>
+                                    <group>
+                                        <field name="customer_email_map" string="Email"/>
+                                        <field name="customer_phone_map" string="Phone"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="customer_table_name" string="Table Name"/>
+                                    <field name="customer_table_where" string="Table Where"/>
+                                </group>
+                            </page>
+                            <page string="Product Category">
+                                <group>
+                                    <group>
+                                        <field name="product_category_id_map" string="ID"/>
+                                        <field name="product_category_name_map" string="Name"/>
+                                    </group>
+                                    <group>
+                                        <field name="product_category_parent_id_map" string="Parent ID"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="product_category_table_name" string="Table Name"/>
+                                    <field name="product_category_table_where" string="Table Where"/>
+                                </group>
+                            </page>
+                            <page string="Products">
+                                <group>
+                                    <group>
+                                        <field name="product_id_map" string="ID"/>
+                                        <field name="product_name_map" string="Name"/>
+                                        <field name="product_description_map" string="Description"/>
+                                    </group>
+                                    <group>
+                                        <field name="product_price_map" string="Price"/>
+                                        <field name="product_cost_map" string="Cost"/>
+                                        <field name="category_id_map" string="Category ID"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="product_table_name" string="Table Name"/>
+                                    <field name="product_table_where" string="Table Where"/>
+                                </group>
+                            </page>
+                            <page string="Invoices">
+                                <group>
+                                    <group>
+                                        <field name="order_id_map" string="Order ID"/>
+                                        <field name="order_date_map" string="Order Date"/>
+                                        <field name="order_customer_id_map" string="Customer ID"/>
+                                    </group>
+                                    <group>
+                                        <field name="order_product_id_map" string="Product ID"/>
+                                        <field name="order_product_price_map" string="Product Price"/>
+                                        <field name="order_product_quantity_map" string="Product Quantity"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="order_table_name" string="Table Name"/>
+                                    <field name="order_table_where" string="Table Where"/>
+                                </group>
+                            </page>
+                            <page string="Logs">
+                                <field name="loading_process_ids" nolabel="1">
+                                    <tree>
+                                        <field name="tran_date_time"/>
+                                        <field name="action_type"/>
+                                        <field name="description"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record id="db_connection_tree_view" model="ir.ui.view">
+            <field name="name">dbconnection</field>
+            <field name="model">dbconnection</field>
+            <field name="arch" type="xml">
+                <tree string="Database Connection String">
+                    <field name="name"/>
+                    <field name="connection_status"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="db_connection_action" model="ir.actions.act_window">
+            <field name="name">Database Connection</field>
+            <field name="res_model">dbconnection</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

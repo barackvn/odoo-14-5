@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="qr.GeneratorItem">
+        <li class="o_mail_navbar_item">
+            <a class="dropdown-toggle o-no-caret" data-toggle="dropdown" data-display="static" aria-expanded="false"
+               title="QR Generator" href="#" role="button">
+                <i class="fa fa-qrcode" role="img" aria-label="QR"/>
+            </a>
+            <ul class="o_mail_navbar_dropdown dropdown-menu dropdown-menu-right" role="menu">
+                <li class="o_mail_navbar_dropdown_top">
+                    <div class="container" style="padding-top: 2px;">
+                        <form class="form_qr" name="f_qr">
+                            <div class="form-group">
+                                <div class="col-100">
+                                    <center>
+                                        <h4>QR Generator</h4>
+                                        <hr style="border: none; border-bottom: 1px solid gainsboro;"/>
+                                    </center>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-100">
+                                    <textarea rows="4" name="link_input" id="ip_link"
+                                              placeholder="Type your text/link.."/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-100" id="ImagePreview">
+                                    <img id="ItemPreview" src="" style="width:100%; height: 100%;"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-100">
+                                    <center>
+                                        <input type="button" id="b_clear" title="Clear All" value="Reset"/>
+                                        <input type="button" id="b_short" title="Generate QR" value="Generate QR"/>
+                                        <div class="btn-group  flex-grow-1 mr-1 mb-1" id="BtnDownload">
+                                            <a class="btn btn-secondary btn-block o_download_btn" href="#"
+                                               id="b_download" download="QR_Code.png" title="Download QR">
+                                                <i class="fa fa-download"/> Download</a>
+                                        </div>
+                                    </center>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </t>
+</templates>

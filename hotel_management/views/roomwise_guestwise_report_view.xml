@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="roomwise_guestwise_report_view">
+			<t t-call="web.html_container">
+				<t t-call="web.internal_layout">
+					<div class="page">
+						<h1 style="text-align:center;">Room and Guestwise Report</h1>
+						
+						<table  cellpadding="5" class="table table-condensed"  width="100%">
+							<thead>
+								<tr style="background-color:#eaeaea;">
+									<th>Room No</th>
+									<th class="text-right">Check In</th>
+									<th class="text-right">Check Out</th>
+									<th class="text-right">Guest Name</th>
+									<th class="text-right">Address</th>
+									<th class="text-right">Is Checkin</th>
+									<th class="text-right">Is Checkout</th>
+								</tr>
+								
+							</thead>
+							<tbody width="100%">
+								<tr t-foreach="get_roomtype_guest_information(docs)" t-as="o" style="border:none">
+									<td>
+										<span t-esc="o['room_name']"/>
+									</td>
+									
+									<td colspan="8">
+										<table cellpadding="30" width="100%">
+											
+											<t t-foreach="o['data']" t-as="mdata">
+												<tr>
+													
+													
+													<td width="15%">
+														<span t-esc="mdata['checkin']" t-options='{"widget": "datetime"}'/>
+													</td>
+													
+													<td width="15%">
+														<span t-esc="mdata['checkout']" t-options='{"widget": "datetime"}'/>
+													</td>
+													<td width="5%">
+													</td>
+													<td width="15%" class="text-left">
+														<span t-esc="mdata['guest_name']"/>
+													</td>
+													<td width="5%">
+													</td>
+													<td width="15%" style="text-align:center;">
+														<t t-if="mdata['address']">
+															<span t-esc="mdata['address']"/>
+														</t>
+														<t t-if ="not mdata['address']">-</t>
+													</td>
+													<td width="10%" style="text-align:center;">
+														<span  t-esc="mdata['is_checkin']"/>
+													</td>
+													<td width="10%" style="text-align:center;">
+														<span  t-esc="mdata['is_checkout']"/>
+													</td>
+												</tr>
+												
+											</t>
+										</table>
+									</td>
+								</tr>
+							</tbody>  
+						</table>
+					</div>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

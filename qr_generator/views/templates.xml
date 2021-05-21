@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="qr_generator" name="url to qr assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/qr_generator/static/src/js/qr_generator.js"></script>
+                <link rel="stylesheet" href="/qr_generator/static/src/scss/qr_generator.scss"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

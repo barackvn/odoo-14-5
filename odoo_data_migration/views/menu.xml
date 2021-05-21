@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+
+        <menuitem id="menu_odoo_data_migration"
+                  name="Odoo Data Migration"
+                  parent="base.menu_administration"
+                  groups="group_odoo_data_migration_admin"
+                  sequence="1024"/>
+
+        <menuitem id="menu_db_connection"
+                  name="Database Connection"
+                  parent="menu_odoo_data_migration"
+                  action="db_connection_action"
+                  groups="group_odoo_data_migration_admin"
+                  sequence="0"/>
+
+
+    </data>
+</odoo>

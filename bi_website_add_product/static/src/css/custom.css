@@ -1,0 +1,17 @@
+.oe_product .product_price {
+position: absolute;
+bottom: 0;
+padding: -10px 0;
+width: 90% !important;
+margin-left: 10px;
+}
+
+.oe_product .product_name {
+margin-left: 10px;
+}
+
+button.btn.btn-default.btn-xs.fa.fa-shopping-cart.a-submit {
+float: right;
+margin-right: 1px;
+margin-left: -6px;
+}

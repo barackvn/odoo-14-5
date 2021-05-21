@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="todoo_calculator" name="calculator assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/todoo_calculator/static/src/js/todoo_calculator.js"></script>
+                <script type="text/javascript" src="/todoo_calculator/static/src/js/calculadora.js"></script>
+                <link rel="stylesheet" href="/todoo_calculator/static/src/scss/todoo_calculator.scss" />
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

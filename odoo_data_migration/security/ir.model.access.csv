@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_odoo_data_migration_dbconnection,access.odoo_data_migration.dbconnection,model_dbconnection,group_odoo_data_migration_admin,1,1,1,1
+access_odoo_data_migration_loading_process,access.odoo_data_migration.loading_process,model_loading_process,group_odoo_data_migration_admin,1,1,1,1
+
+

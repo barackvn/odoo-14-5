@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+	
+	<template id="assets_frontend" inherit_id="website.assets_frontend" name="Add Product">
+	  <xpath expr="." position="inside">
+	      <link rel="stylesheet" href="/bi_website_add_product/static/src/css/custom.css"/>
+	  </xpath>
+	</template>
+	
+	<template id="add_website_product_item" inherit_id="website_sale.products_item" customize_show="True" name="Dynamic Add To Cart"> 
+		<xpath expr="//form[@action='/shop/cart/update']" method="post" position="replace"> 
+			<form action="/shop/cart/update/product" method="get" class="card oe_product_cart"
+            t-att-data-publish="product.website_published and 'on' or 'off'"
+            itemscope="itemscope" itemtype="http://schema.org/Product"> 
+				<div class="card-body p-1 oe_product_image">
+                	<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                	<div class="ribbon-wrapper">
+                    	<a href="#" role="button" class="ribbon btn btn-danger">Sale</a>
+                	</div>
+                	<a t-att-href="product_href" class="d-block h-100" itemprop="url">
+                    	<span t-field="product.image_1920"
+                        t-options="{'widget': 'image', 'preview_image': 'image_1024' if product_image_big else 'image_256'}"
+                        class="d-flex h-100 justify-content-center align-items-center"/>
+               		</a>
+            	</div>
+				<t t-if="show_publish">
+                   	<div id="website_published_button" class="" groups="sales_team.group_sale_manager">
+                        <t t-call="website.publish_management">
+                            <t t-set="object" t-value="product" />
+                            <t t-set="publish_edit" t-value="True" />
+                            <t t-set="action" t-value="'product.product_template_action'" />
+                        </t>
+                    </div>
+                </t>  
+				<section>
+					<h5 style="margin-bottom: 40px;">
+                        <strong>
+                            <a itemprop="name" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))" t-field="product.name" class="product_name"/>
+                        </strong>
+                    </h5>
+					<div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer" class="product_price" t-if="product.product_variant_ids">
+					    <input name="product_id" t-att-value="product.product_variant_ids[0].id" type="hidden"/>
+						<div name="dynamic_add_to_cart">
+							<t t-set="products" t-value="website.add_website_product(product.product_variant_ids[0].id)"/>
+						    <button type="submit" class="btn btn-default btn-xs fa fa-shopping-cart a-submit" t-if="not products" t-att-row="product.product_variant_ids[0].id"/>
+                        </div>	
+						<b>      
+                           	<del t-attf-class="text-danger mr-2 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+                           	<span t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                           	<span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
+                           	<span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+						</b>
+					</div>
+				</section>
+				<div class="o_wsale_product_btn"/>
+			 </form>
+		  </xpath>
+	</template>
+	
+	</data>
+</odoo>

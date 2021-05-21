@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="todoo.CalculatorItem">
+        <li class="o_mail_navbar_item">
+            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Calculator" href="#">
+                <i class="fa fa-calculator"/>
+            </a>
+            <ul class="o_mail_navbar_dropdown dropdown-menu" role="menu">
+                <li class="o_mail_navbar_dropdown_top">
+                    <div class="calculadora">
+                        <center>
+                            <form class="form-calc" name="f1">
+                                <br/>
+                                <input type="text" name="txtcaja1" class="txtcaja1" style="display:none;"/>
+                                <br/>
+                                <input type="text" name="txtcaja2" value="0" class="txtcaja2"/>
+                                <br/>
+                                <input type="button" class="clear" onclick="document.f1.txtcaja2.value='0'" value="CE"/>
+                                <input type="button" class="clear" onclick="document.f1.reset(); blocdel = false;" value="C"/>
+                                <input type="button" class="arit" onclick="masmenos()" value="±"/>
+                                <input type="button" class="arit" onclick="arit('%')" value="%"/>
+                                <br/>
+                                <input type="button" onclick="escribir(this.value)" value="7"/>
+                                <input type="button" onclick="escribir(this.value)" value="8"/>
+                                <input type="button" onclick="escribir(this.value)" value="9"/>
+                                <input type="button" class="arit" onclick="arit('/')" value="÷"/>
+                                <br/>
+                                <input type="button" onclick="escribir(this.value)" value="4"/>
+                                <input type="button" onclick="escribir(this.value)" value="5"/>
+                                <input type="button" onclick="escribir(this.value)" value="6"/>
+                                <input type="button" class="arit" onclick="arit('*')" value="×"/>
+                                <br/>
+                                <input type="button" onclick="escribir(this.value)" value="1"/>
+                                <input type="button" onclick="escribir(this.value)" value="2"/>
+                                <input type="button" onclick="escribir(this.value)" value="3"/>
+                                <input type="button" class="arit" onclick="arit('-')" value="-"/>
+                                <br/>
+                                <input type="button" onclick="escribir(this.value)" value="0"/>
+                                <input type="button" onclick="escribir('.')" value="."/>
+                                <input type="button" class="igual" onclick="calcular()" value="="/>
+                                <input type="button" class="arit" onclick="arit('+')" value="+"/>
+                                <br/>
+                            </form>
+                        </center>
+                    </div>
+                </li>
+
+            </ul>
+        </li>
+    </t>
+
+</templates>

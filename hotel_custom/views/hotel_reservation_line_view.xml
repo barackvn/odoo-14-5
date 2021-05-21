@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_hotel_reservation_line_from_inherit">
+            <field name="name">hotel.reservation.line.form.inherit2</field>
+            <field name="model">hotel.reservation.line</field>
+            <field name="inherit_id" ref="hotel_management.view_hotel_reservation_line_from"/>
+            <field name="arch" type="xml">
+                <field name="room_number" position="after">
+                    <field name="owner_id"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_hotel_reservation_line_tree_inherit">
+            <field name="name">hotel.reservation.line.tree.inherit2</field>
+            <field name="model">hotel.reservation.line</field>
+            <field name="inherit_id" ref="hotel_management.view_hotel_reservation_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="room_number" position="after">
+                    <field name="owner_id"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
